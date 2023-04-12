@@ -3,9 +3,10 @@
     padding: 0;
 }
 
-$primary-color: #007bff;
 $dark: #222;
 $light: #eee;
+$primary-color: #007bff;
+$fruit-color: #d63f3f;
 
 @mixin cover-whole-screen {
     width: 100vw;
@@ -25,11 +26,29 @@ $light: #eee;
     color: $light
 }
 
+@mixin game-element {
+    position: fixed;
+} 
+
+@mixin circle {
+    border-radius: 50%;
+}
+
 #App, #Home {
     @include cover-whole-screen;
     @include flex-center-column;
     @include dark-theme;
 }
 
+.fruit {
+    @include game-element;
+    @include circle;
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: $fruit-color;
+}
 
-
+#Points {
+    @include game-element;
+    top: 1rem;
+}

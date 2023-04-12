@@ -1,11 +1,11 @@
 export enum GameStateEnum {
-  LOBBY = "LOBBY",
-  ONGOING = "ONGOING",
-  END = "END",
+  LOBBY,
+  ONGOING,
+  END,
 }
 
 export enum GameDifficultyEnum {
-    EASY = "EASY",
-    STANDARD = "STANDARD",
-    HARD = "HARD",
+    EASY,
+    STANDARD,
+    HARD,
 }
