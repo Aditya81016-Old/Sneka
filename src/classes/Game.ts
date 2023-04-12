@@ -35,11 +35,13 @@ export default class Game {
     spawn();
 
     function spawn(): void {
-      spawnRate = Math.max(2000 ,spawnRate - 50);
+      spawnRate = Math.max(2000, spawnRate - 10);
       const fruit = $("<div>", {
         class: "fruit",
         id: String(fruitId++),
       });
+
+      fruit.html('<i class="fa-solid fa-apple-whole"></i>')
 
       const top: number =
         Math.random() * Number($(window).height()) -
