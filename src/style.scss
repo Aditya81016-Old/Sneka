@@ -30,8 +30,10 @@ $fruit-color: #d63f3f;
     position: fixed;
 } 
 
-@mixin circle {
+@mixin circle($size) {
     border-radius: 50%;
+    height: $size;
+    width: $size;
 }
 
 #App, #Home {
@@ -41,14 +43,30 @@ $fruit-color: #d63f3f;
 }
 
 .fruit {
-    @include game-element;
-    @include circle;
     @include flex-center-column;
-    border: 2px solid $fruit-color;
-    width: 1.5rem;
-    height: 1.5rem;
+    @include game-element;
+    @include circle(2rem);
+    background-color: $fruit-color;
     padding: 1%
 }
+
+#Player {
+    @include flex-center-column;
+    @include game-element;
+    width: 3rem;
+} 
+
+// players part
+.part {
+    @include game-element;
+    @include circle(2.5rem);
+    background-color: $fruit-color
+}
+// player head
+#Head {
+    @include game-element;
+    @include circle(3rem)
+} 
 
 #Points {
     @include game-element;

@@ -4,7 +4,10 @@ import Ingame from "../components/Ingame";
 export default class Game {
   GameState: GameStateEnum = GameStateEnum.LOBBY;
   GameDifficulty: GameDifficultyEnum = GameDifficultyEnum.STANDARD;
-  fruitId: number = 0;
+  fruitId = 0;
+  player = $("<div>", {
+    id: "Player",
+  });
 
   // starts the game
   start(): void {
@@ -13,8 +16,8 @@ export default class Game {
     // sets game state to ONGPOING
     this.GameState = GameStateEnum.ONGOING;
 
-    const {updatePoints, html} = Ingame()
-    $("#App").html(html)
+    const { html } = Ingame();
+    $("#App").html(html);
 
     // starts spawning fruits
     this.spawnFruits(this.fruitId);
@@ -41,7 +44,7 @@ export default class Game {
         id: String(fruitId++),
       });
 
-      fruit.html('<i class="fa-solid fa-apple-whole"></i>')
+      fruit.html('<i class="fa-solid fa-apple-whole"></i>');
 
       const top: number =
         Math.random() * Number($(window).height()) -
@@ -51,7 +54,7 @@ export default class Game {
         Math.random() * Number($(window).width()) -
         Number(fruit.css("width").replace("px", ""));
 
-      console.log(fruit.css("height"), left)
+      console.log(fruit.css("height"), left);
 
       fruit.css("top", top + "px");
       fruit.css("left", left + "px");
@@ -65,7 +68,79 @@ export default class Game {
   }
 
   // spawns player
-  spawnPlayer(): void {}
+  spawnPlayer(): void {
+    const startingNoOfParts = 5; // starting no. of parts player with have
+    let totalNoOfParts = 1; // total no. of parts in player throughout the game
+
+    const oneRem = parseFloat(
+      getComputedStyle(document.documentElement).fontSize
+    );
+
+    interface RGBInterface {
+      red: number;
+      green: number;
+      blue: number;
+    }
+
+    const RGB: RGBInterface = {
+      red: 214,
+      blue: 63,
+      green: 63,
+    };
+
+    let zIndex: number = 0
+
+    let top = Number($(window).height()) / 2;
+
+    const head = $("<div>", {
+      class: "part",
+      id: "Head",
+    });
+
+    head.css("top", top + "px");
+    head.css("z-index", zIndex--);
+    head.css("background-color", getColor(RGB));
+    
+    top = top + 1.5 * oneRem;
+
+    RGB.red -= RGB.red / startingNoOfParts;
+    RGB.blue -= RGB.blue / startingNoOfParts;
+    RGB.green -= RGB.green / startingNoOfParts;
+
+
+
+    this.player.append(head);
+
+    while (totalNoOfParts < startingNoOfParts) {
+      addPart(this.player);
+      totalNoOfParts++;
+    }
+
+    $("#App").append(this.player);
+
+    function addPart(player: JQuery<HTMLElement>) {
+      const part = $("<div>", {
+        class: "part",
+        id: String(totalNoOfParts),
+      });
+
+      part.css("top", top + "px");
+      part.css("z-index", zIndex--);
+      part.css("background-color", getColor(RGB));
+
+      RGB.red -= RGB.red / startingNoOfParts;
+      RGB.blue -= RGB.blue / startingNoOfParts;
+      RGB.green -= RGB.green / startingNoOfParts;
+
+      top = top + 1 * oneRem;
+
+      player.append(part);
+    }
+
+    function getColor({ red, green, blue }: RGBInterface): string {
+      return `rgb(${red}, ${green}, ${blue})`;
+    }
+  }
 
   // initializes the controls
   initializeControl(): void {}
