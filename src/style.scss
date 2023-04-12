@@ -1,0 +1,35 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+$primary-color: #007bff;
+$dark: #222;
+$light: #eee;
+
+@mixin cover-whole-screen {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+} 
+
+@mixin flex-center-column {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+@mixin dark-theme {
+    background-color: $dark;
+    color: $light
+}
+
+#App, #Home {
+    @include cover-whole-screen;
+    @include flex-center-column;
+    @include dark-theme;
+}
+
+
+
